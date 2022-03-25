@@ -9,16 +9,21 @@ export default StyleSheet.create({
         backgroundColor: colors.primary
     },
     title: {
-        fontFamily: 'FuturaStd-Medium', fontSize: WIDTH(45), textAlign: 'center', color: "white", width: '100%', paddingHorizontal: 40, lineHeight: HEIGHT(50)
+        fontSize: WIDTH(45), textAlign: 'center', 
+        color: "black", width: '100%',
+         paddingHorizontal: 40, 
+         lineHeight: HEIGHT(50),
+         paddingTop:80
     },
     subtitle: {
-        fontFamily: 'FuturaStd-Medium', fontSize: WIDTH(20), textAlign: 'center', color: colors.gray, marginTop: HEIGHT(30), width: '100%', paddingHorizontal: 30, lineHeight: HEIGHT(25)
+        fontSize: WIDTH(20), textAlign: 'center', 
+        color: "black", marginTop: HEIGHT(30), width: '100%', paddingHorizontal: 30, lineHeight: HEIGHT(25)
     },
     tablabel: {
-        fontFamily: 'FuturaStd-Medium', fontSize: WIDTH(20), fontWeight: '100', marginBottom: HEIGHT(15)
+     fontSize: WIDTH(20), fontWeight: '100', marginBottom: HEIGHT(15)
     },
     input: {
-        fontFamily: 'FuturaStd-Medium', fontSize: WIDTH(28), color: 'white'
+         fontSize: WIDTH(28), color: 'black'
     },
     headerlabel: {
         fontFamily: 'FuturaStd-Medium', fontSize: WIDTH(26), color: 'white'

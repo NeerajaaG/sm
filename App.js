@@ -7,9 +7,8 @@
      ScrollView,
      View,
      Text,
-     StatusBar,
+     
      Image,
-     ImageBackground,
      Dimensions
  } from 'react-native';
  
@@ -21,13 +20,21 @@
  import { WIDTH, HEIGHT } from './src/config/utils'
  import 'react-native-gesture-handler';
 
- 
- 
+ import SigninScreen from './src/screens/SigninScreen'
+
+ import Register from './src/screens/Register'
+
  import RatingScreen from './src/screens/RatingScreen'
 
  
  import PlayScreen from './src/screens/PlayScreen'
  import CheckPlayScreen from './src/screens/CheckPlayScreen'
+
+ import { persistStore } from 'redux-persist'
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react'
+import store, {sagaMiddleware} from './src/redux/store'
+import rootSaga from './src/redux/saga'
 
  
  const Stack = createStackNavigator()
@@ -93,19 +100,39 @@
      )
  }
  
+ const SigninStack = ()=>{
+    return (
+        <>
+                <Stack.Navigator
+                    screenOptions={{
+                        headerShown: false
+                    }}
+                >
+                    <Stack.Screen name='signin' component={SigninScreen} />
+                    <Stack.Screen name='reg' component={Register} />
+
+                </Stack.Navigator>
+        </>
+    )
+}
+
  const App = () => {
      return (
-        
+        <Provider store={store}>
+        <PersistGate loading={null} persistor={persistStore(store)}>
                  <NavigationContainer>
                      <Stack.Navigator
                          screenOptions={{
                              headerShown: false
                          }}
                      >
-                         
+                        <Stack.Screen name='signin' component={SigninStack} />
+
                          <Stack.Screen name='main' component={Main} />
                      </Stack.Navigator>
                  </NavigationContainer>
+                 </PersistGate>
+        </Provider>
                 
      );
  };
