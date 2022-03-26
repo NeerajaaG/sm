@@ -11,6 +11,7 @@ import {Input, CheckBox, Button } from 'react-native-elements'
 // import {signIn} from '../redux/actions'
 import FullButton from './FullButton'
 import {signIn} from '../redux/actions'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 
 export default ({navigation}) => {
@@ -26,7 +27,7 @@ export default ({navigation}) => {
     const dispatch = useDispatch()
     
     const handleLogin = () => {
-        console.log("login",email);
+        // console.log("login",email);
         dispatch(signIn({email, password}))
     }
     const goForgotPassScreen = () => {
@@ -42,11 +43,24 @@ export default ({navigation}) => {
             })
         }
     }, [message])
-    useEffect(()=>{
-        if (userInfo) {
+    useEffect(async()=>{
+        
+        // if (userInfo) {
+        //     navigation.replace('main')
+        // }
+    }, [userInfo])
+    useEffect(() => { 
+        getResponse();
+      });
+      getResponse = async()=>{
+        const value = await AsyncStorage.getItem('@Token');
+
+        console.log("&&&&&&",value);
+         if (value) {
             navigation.replace('main')
         }
-    }, [userInfo])
+      }
+
     return (
         <SafeAreaView style={{flex:1,justifyContent:"center",alignItems:"center"}}>
                 <Text style={gstyles.title}>SignIn</Text>

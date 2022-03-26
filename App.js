@@ -24,11 +24,10 @@
 
  import Register from './src/screens/Register'
 
- import RatingScreen from './src/screens/RatingScreen'
+ import ProfileScreen from './src/screens/ProfileScreen'
 
  
- import PlayScreen from './src/screens/PlayScreen'
- import CheckPlayScreen from './src/screens/CheckPlayScreen'
+ import AllProfileScreen from './src/screens/AllProfileScreen'
 
  import { persistStore } from 'redux-persist'
 import { Provider } from 'react-redux';
@@ -43,38 +42,11 @@ import rootSaga from './src/redux/saga'
  
  
  
- const PlayStack = ()=>{
-     return (
-         <>
-                 <Stack.Navigator
-                     screenOptions={{
-                         headerShown: false
-                     }}
-                 >
-                     <Stack.Screen name='Play' component={PlayScreen} />
-                     <Stack.Screen name='CheckPlay' component={CheckPlayScreen} />
-                     {/* <Stack.Screen name="QuizReview" component={QuizReviewScreen} /> */}
-                 </Stack.Navigator>
-         </>
-     )
- }
  const Main = () => {
      return (
          <Tab.Navigator
              screenOptions={({ route }) => ({
-                 tabBarIcon: ({ focused, color, size }) => {
-                     switch (route.name) {
-                        
-                         case 'TopRating':
-                             return (
-                                 <Image resizeMode='contain' source={require('./src/assets/Courses.png')} style={gstyles.tabBarIcon}/>
-                             )
-                         case 'Playing':
-                             return (
-                                 <Image resizeMode='contain' source={require('./src/assets/stackwhite_new.png')} style={gstyles.tabBarIcon}/>
-                             )
-                     }
-                 },
+                 
                  tabBarLabel: ({ focused, color }) => {
                      return <Text style={[gstyles.tablabel, {color: focused?'red':'black'}]}>{route.name}</Text>
                  },
@@ -94,8 +66,8 @@ import rootSaga from './src/redux/saga'
          >
              {/* <Tab.Screen name="Quizzes" component={DashboardStack} /> */}
            
-             <Tab.Screen name="TopRating" component={RatingScreen} />
-             <Tab.Screen name="Playing" component={PlayStack} />
+             <Tab.Screen name="Profile" component={ProfileScreen} />
+             <Tab.Screen name="AllProfile" component={AllProfileScreen} />
          </Tab.Navigator>
      )
  }

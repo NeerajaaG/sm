@@ -1,4 +1,4 @@
-import {View, SafeAreaView, StatusBar, Image, Text, StyleSheet, TouchableOpacity}  from 'react-native'
+import {View, SafeAreaView, StatusBar, Image, Text, StyleSheet,Alert , TouchableOpacity}  from 'react-native'
 import React, { useState, useEffect } from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import Toast from 'react-native-toast-message'
@@ -10,42 +10,95 @@ import {Input, CheckBox, Button } from 'react-native-elements'
 
 // import {signIn} from '../redux/actions'
 import FullButton from './FullButton'
+import {Reg} from '../redux/actions'
+import {reg} from '../config/api'
 
 export default ({navigation}) => {
     // console.log("signin screen",useSelector(state => state.userReducer));
     // const [rememberMe, setRememberMe] = useState(false)
-    const [email, setEmail] = useState(useSelector(state => state.userReducer.email))
-    const [rememberMe, setRememberMe] = useState(useSelector(state => state.userReducer.rememberMe))
+    const [email, setEmail] = useState('')
 
-    const [password, setPassword] = useState(useSelector(state => state.userReducer.password))
+    const [password, setPassword] = useState('')
     const [hidePass, setHidePass] = useState(true);
-    const loading = useSelector(state => state.loginReducer.loading)
-    const message = useSelector(state => state.loginReducer.message)
-    const userInfo = useSelector(state=>state.userReducer.userInfo)
+   
     const dispatch = useDispatch()
-    const handleLogin = () => {
-        console.log("login",rememberMe);
+
+    const handleReg = async() => {
         // navigation.replace('main')
-        // dispatch(signIn({email, password, rememberMe}))
+
+        if (email == '') {
+            Alert.alert(
+                "Error",
+                "Enter an email",
+                [
+                  {
+                    text: "Cancel",
+                    style: "cancel"
+                  },
+                  { text: "OK",  }
+                ]
+              );
+            
+        }
+
+        if( password === ''){
+            Alert.alert(
+                "Error",
+                "Enter password",
+                [
+                  {
+                    text: "Cancel",
+                    style: "cancel"
+                  },
+                  { text: "OK",  }
+                ]
+              );
+
+        }
+        else{
+            const response = await reg(email,password)
+            console.log("respo. from reg",response);
+            if(response.error == "Note: Only defined users succeed registration"){
+                Alert.alert(
+                    "Error",
+                    "Note: Only defined users succeed registration",
+                    [
+                      {
+                        text: "Cancel",
+                        // onPress: () => console.log("Cancel Pressed"),
+                        style: "cancel"
+                      },
+                      { text: "OK", onPress: () => console.log("OK Pressed") }
+                    ]
+                  );
+            }
+            else{
+                    Alert.alert(
+                        "Success",
+                        "You are registered",
+                        [
+                          {
+                            text: "Cancel",
+                            // onPress: () => console.log("Cancel Pressed"),
+                            style: "cancel"
+                          },
+                          { text: "OK", onPress: () => navigation.replace('main') }
+                        ]
+                      );
+                
+            }
+    
+        }
+       
+
     }
-    const goForgotPassScreen = () => {
+    const goLogin = () => {
         navigation.push('signin')
     }
+    
     useEffect(()=>{
-        if (message) {
-            Toast.show({
-                type: 'error',
-                position: 'bottom',
-                text1: 'login error',
-                text2: message
-            })
-        }
-    }, [message])
-    useEffect(()=>{
-        if (userInfo) {
-            navigation.replace('main')
-        }
-    }, [userInfo])
+       
+    }, [])
     return (
         <SafeAreaView style={{flex:1,justifyContent:"center",alignItems:"center"}}>
                 <Text style={gstyles.title}>Register</Text>
@@ -85,13 +138,12 @@ export default ({navigation}) => {
                 <View style={{marginTop: HEIGHT(60)}}>
                     <FullButton
                         title='Register'
-                        loading={loading}
-                        onPress={handleLogin}
+                        onPress={handleReg}
                     />
                 </View>
                 <TouchableOpacity
                     style={{marginTop: HEIGHT(30), paddingRight: WIDTH(40),flexDirection:"row",flex:1,marginLeft:'auto' }}
-                    onPress={goForgotPassScreen}
+                    onPress={goLogin}
                 >
                     <Text style={{fontSize: WIDTH(23), lineHeight: HEIGHT(25), color: 'Black'}}>Do you want to SignIn ?</Text>
 

@@ -6,7 +6,7 @@ const initialState = {
 }
 
 export default (state=initialState, action) => {
-    console.log("action reducer",action);
+    // console.log("action reducer",action);
     switch (action.type) {
         case LOGIN: {
             return {

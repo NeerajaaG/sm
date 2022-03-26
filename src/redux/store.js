@@ -5,7 +5,7 @@ import { persistReducer } from 'redux-persist'
 import createSagaMiddleware from 'redux-saga'
 
 import {name as appName} from '../../app.json'
-
+import rootSaga  from './saga'
 import reducers from './reducers'
 
 const persistConfig = {
@@ -15,4 +15,7 @@ const persistConfig = {
 }
 const persistedReducer = persistReducer(persistConfig, reducers)
 export const sagaMiddleware = createSagaMiddleware()
+
 export default store = createStore(persistedReducer, applyMiddleware(sagaMiddleware))
+sagaMiddleware.run(rootSaga);
+

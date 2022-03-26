@@ -7,30 +7,14 @@ import { WIDTH, HEIGHT } from '../config/utils'
 
 import {getAllMovies} from '../config/api'
 
-import DeckCell from './DeckCell'
+import ProfCell from './ProfCell'
+import {getAllProfile} from '../config/api'
+
 
 export default ({navigation}) => {
     const [activities, setActivities] = useState({activities:[], refreshing: false})
    
 
-   
-   
-    const handleActivity = async(item) => {
-      
-            // const quizResult = await practiseDeck(userInfo.id,item.id,item.shared)
-            // console.log("response Deck api",quizResult);
-
-
-           
-            
-                console.log("item Deck api in no ",item);
-
-                navigation.push('CheckPlay', {item})
-            
-
-        
-        
-    }
     useEffect(() => {
         loadActivities()
     }, [])
@@ -40,12 +24,12 @@ export default ({navigation}) => {
             activities: [],
             refreshing: true
         })
-         const response = await getAllMovies()
-        // console.log("response in deck screen",response.activity.results);
+         const response = await getAllProfile()
+        console.log("response in getall prof screen",response.activity);
 
        
             setActivities({
-                activities: response.activity.results,
+                activities: response.activity,
                 refreshing: false
             })
        
@@ -58,8 +42,7 @@ export default ({navigation}) => {
     }
     return (
         <View style={{flex: 1,
-            backgroundColor: "#C4C4C4"}}>
-            <StatusBar backgroundColor={colors.primary}/>
+            backgroundColor: "white"}}>
            
             <FlatList
                 style={{flex: 1, backgroundColor: 'white', margin: HEIGHT(10), paddingHorizontal: WIDTH(20), borderRadius: HEIGHT(10)}}
@@ -69,7 +52,8 @@ export default ({navigation}) => {
                 refreshing={activities.refreshing}
                 contentContainerStyle={{paddingBottom: HEIGHT(30)}}
                 keyExtractor={(item, index) => ''+index}
-                renderItem={props=><DeckCell {...props} onPress={handleActivity}/>}
+                // numColumns={2}
+                renderItem={props=><ProfCell {...props} />}
             />
              
           

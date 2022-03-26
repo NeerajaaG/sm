@@ -1,4 +1,4 @@
-import {LOGIN, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT} from '../actions'
+import {LOGIN, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT,REG} from '../actions'
 
 const initialState = {
     
@@ -19,15 +19,16 @@ export default (state=initialState, action,emptyState) => {
     switch (action.type) {
         default:
             break
-        case LOGIN_SUCCESS: {
-            const {userInfo,  email, password} = action.payload
-            console.log("userReducer LOGIN_SUCCESS",action.payload);
-            return {email, password}
+       
+        case LOGIN: {
+            const {  userInfo, email, password} = action.payload
+            console.log("userReducer",action.payload);
+            return {email, password,userInfo}
 
         }
-        case LOGIN: {
-            const {  email, password} = action.payload
-            console.log("userReducer",action.payload);
+        case REG: {
+            const {   email, password} = action.payload
+            console.log("userReducer Reg",action.payload);
             return {email, password}
 
         }

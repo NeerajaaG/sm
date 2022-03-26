@@ -11,7 +11,7 @@ export default ({title, onPress, loading}) => {
             loading={loading}
             containerStyle={{width: '100%', paddingHorizontal: WIDTH(20)}}
             buttonStyle={{backgroundColor: "grey", height: HEIGHT(70), }}
-            titleStyle={{ fontSize: WIDTH(29), color: 'black'}}
+            titleStyle={{ fontSize: WIDTH(29), color: 'white'}}
             onPress={onPress}
         />
 
